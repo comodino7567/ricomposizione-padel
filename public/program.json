@@ -1,0 +1,266 @@
+{
+  "version": 1,
+  "name": "Ricomposizione + padel — Fase 1",
+  "phase": 1,
+  "muscleGroupLabels": {
+    "chest": "Petto",
+    "back": "Dorso",
+    "sideDelts": "Deltoidi laterali",
+    "rearDelts": "Deltoidi posteriori",
+    "biceps": "Bicipiti",
+    "triceps": "Tricipiti",
+    "traps": "Trapezi",
+    "quads": "Quadricipiti",
+    "hamsGlutes": "Femorali e glutei",
+    "calves": "Polpacci",
+    "frontDelts": "Deltoidi anteriori",
+    "forearms": "Avambracci",
+    "neck": "Collo",
+    "core": "Core",
+    "adductors": "Adduttori",
+    "hipFlexors": "Flessori d'anca"
+  },
+  "trackedMuscleGroups": ["chest", "back", "sideDelts", "rearDelts", "biceps", "triceps", "traps", "quads", "hamsGlutes", "calves"],
+  "techniques": {
+    "none": { "label": "", "description": "" },
+    "dropset": { "label": "Drop set", "description": "A fine serie riduci il carico del 30% e continui fino al cedimento, una sola volta." },
+    "myoreps": { "label": "Myo-reps", "description": "Serie di attivazione fermata a 1-2 ripetizioni dal cedimento, poi 5 respiri di pausa e mini-serie da 3-5 ripetizioni, fino a 3 mini-serie o finché non arrivi più a 3." },
+    "eccentric4s": { "label": "Eccentrica 4\"", "description": "Scendi in 4 secondi contati, sali normalmente." },
+    "amrapLast": { "label": "AMRAP", "description": "Tutte le ripetizioni che riesci con tecnica pulita, fermandoti a 1 dal cedimento." }
+  },
+  "exercises": [
+    { "id": "bench_bb", "name": "Panca piana bilanciere", "muscleGroups": { "primary": ["chest"], "secondary": ["triceps", "frontDelts"] }, "equipment": "rack + bilanciere", "loadType": "barbell", "incrementKg": 2.5, "substitutes": ["bench_smith", "chest_press"], "blockedByInjury": false },
+    { "id": "row_bb", "name": "Rematore bilanciere", "muscleGroups": { "primary": ["back"], "secondary": ["biceps", "rearDelts"] }, "equipment": "bilanciere", "loadType": "barbell", "incrementKg": 2.5, "substitutes": ["tbar_row", "row_smith", "seal_row_db"], "blockedByInjury": false },
+    { "id": "incline_db", "name": "Panca inclinata manubri 30°", "muscleGroups": { "primary": ["chest"], "secondary": ["frontDelts", "triceps"] }, "equipment": "manubri + panca", "loadType": "dumbbell", "incrementKg": 2, "substitutes": [], "blockedByInjury": false },
+    { "id": "lat_pulldown_wide", "name": "Lat machine presa larga", "muscleGroups": { "primary": ["back"], "secondary": ["biceps"] }, "equipment": "lat machine", "loadType": "machine", "incrementKg": 2.5, "substitutes": [], "blockedByInjury": false },
+    { "id": "lateral_raise_cable", "name": "Alzate laterali al cavo", "muscleGroups": { "primary": ["sideDelts"], "secondary": [] }, "equipment": "cavi", "loadType": "cable", "incrementKg": 2.5, "substitutes": [], "blockedByInjury": false },
+    { "id": "face_pull", "name": "Face pull con corda", "muscleGroups": { "primary": ["rearDelts"], "secondary": ["traps"] }, "equipment": "cavi + corda", "loadType": "cable", "incrementKg": 2.5, "substitutes": ["rear_delt_fly_db"], "blockedByInjury": false },
+    { "id": "curl_ez", "name": "Curl con bilanciere EZ", "muscleGroups": { "primary": ["biceps"], "secondary": ["forearms"] }, "equipment": "bilanciere EZ", "loadType": "barbell", "incrementKg": 2.5, "substitutes": [], "blockedByInjury": false },
+    { "id": "pushdown_rope", "name": "Pushdown con corda", "muscleGroups": { "primary": ["triceps"], "secondary": [] }, "equipment": "cavi + corda", "loadType": "cable", "incrementKg": 2.5, "substitutes": [], "blockedByInjury": false },
+    { "id": "shrug_bb", "name": "Shrug con bilanciere", "muscleGroups": { "primary": ["traps"], "secondary": ["forearms"] }, "equipment": "bilanciere", "loadType": "barbell", "incrementKg": 2.5, "substitutes": [], "blockedByInjury": false },
+
+    { "id": "squat_bb", "name": "Squat bilanciere", "muscleGroups": { "primary": ["quads"], "secondary": ["hamsGlutes"] }, "equipment": "rack + bilanciere", "loadType": "barbell", "incrementKg": 2.5, "substitutes": ["hack_squat", "leg_press"], "blockedByInjury": false },
+    { "id": "rdl_bb", "name": "Stacco rumeno bilanciere", "muscleGroups": { "primary": ["hamsGlutes"], "secondary": ["back"] }, "equipment": "bilanciere", "loadType": "barbell", "incrementKg": 2.5, "substitutes": ["rdl_db", "leg_curl"], "blockedByInjury": false },
+    { "id": "leg_press", "name": "Leg press", "muscleGroups": { "primary": ["quads"], "secondary": ["hamsGlutes"] }, "equipment": "leg press", "loadType": "plate", "incrementKg": 5, "substitutes": [], "blockedByInjury": false },
+    { "id": "hip_thrust_bb", "name": "Hip thrust bilanciere", "muscleGroups": { "primary": ["hamsGlutes"], "secondary": [] }, "equipment": "bilanciere + panca", "loadType": "barbell", "incrementKg": 2.5, "substitutes": ["hip_thrust_smith"], "blockedByInjury": false },
+    { "id": "calf_standing", "name": "Calf raise in piedi", "muscleGroups": { "primary": ["calves"], "secondary": [] }, "equipment": "macchina calf / Smith", "loadType": "machine", "incrementKg": 5, "substitutes": ["calf_leg_press"], "blockedByInjury": false },
+    { "id": "farmers_carry", "name": "Farmer's carry", "muscleGroups": { "primary": ["forearms"], "secondary": ["traps", "core"] }, "equipment": "manubri o kettlebell", "loadType": "dumbbell", "incrementKg": 2, "substitutes": [], "blockedByInjury": false },
+    { "id": "pallof_press", "name": "Pallof press al cavo", "muscleGroups": { "primary": ["core"], "secondary": [] }, "equipment": "cavi", "loadType": "cable", "incrementKg": 2.5, "substitutes": [], "blockedByInjury": false },
+    { "id": "cable_crunch", "name": "Crunch al cavo", "muscleGroups": { "primary": ["core"], "secondary": [] }, "equipment": "cavi + corda", "loadType": "cable", "incrementKg": 2.5, "substitutes": [], "blockedByInjury": false },
+
+    { "id": "ohp_bb", "name": "Military press bilanciere in piedi", "muscleGroups": { "primary": ["frontDelts"], "secondary": ["triceps", "sideDelts"] }, "equipment": "rack + bilanciere", "loadType": "barbell", "incrementKg": 2.5, "substitutes": ["db_shoulder_press_seated"], "blockedByInjury": false },
+    { "id": "pullup", "name": "Trazioni", "muscleGroups": { "primary": ["back"], "secondary": ["biceps"] }, "equipment": "sbarra + elastico o macchina assistita", "loadType": "assisted", "incrementKg": 5, "substitutes": ["lat_pulldown_heavy"], "blockedByInjury": false },
+    { "id": "bench_db", "name": "Panca piana manubri", "muscleGroups": { "primary": ["chest"], "secondary": ["triceps", "frontDelts"] }, "equipment": "manubri + panca", "loadType": "dumbbell", "incrementKg": 2, "substitutes": [], "blockedByInjury": false },
+    { "id": "row_db_1arm", "name": "Rematore un braccio con manubrio", "muscleGroups": { "primary": ["back"], "secondary": ["biceps", "rearDelts"] }, "equipment": "manubrio + panca", "loadType": "dumbbell", "incrementKg": 2, "substitutes": [], "blockedByInjury": false },
+    { "id": "lateral_raise_db", "name": "Alzate laterali manubri", "muscleGroups": { "primary": ["sideDelts"], "secondary": [] }, "equipment": "manubri", "loadType": "dumbbell", "incrementKg": 2, "substitutes": [], "blockedByInjury": false },
+    { "id": "rear_delt_pecdeck", "name": "Rear delt fly (pec deck inverso)", "muscleGroups": { "primary": ["rearDelts"], "secondary": [] }, "equipment": "pec deck", "loadType": "machine", "incrementKg": 2.5, "substitutes": [], "blockedByInjury": false },
+    { "id": "incline_db_curl", "name": "Curl manubri su panca inclinata", "muscleGroups": { "primary": ["biceps"], "secondary": [] }, "equipment": "manubri + panca", "loadType": "dumbbell", "incrementKg": 2, "substitutes": [], "blockedByInjury": false },
+    { "id": "overhead_ext_cable", "name": "French press o estensioni sopra la testa al cavo", "muscleGroups": { "primary": ["triceps"], "secondary": [] }, "equipment": "bilanciere EZ o cavi", "loadType": "cable", "incrementKg": 2.5, "substitutes": [], "blockedByInjury": false },
+    { "id": "wrist_curl", "name": "Wrist curl", "muscleGroups": { "primary": ["forearms"], "secondary": [] }, "equipment": "manubri o bilanciere", "loadType": "dumbbell", "incrementKg": 2, "substitutes": [], "blockedByInjury": false },
+    { "id": "reverse_curl", "name": "Reverse curl", "muscleGroups": { "primary": ["forearms"], "secondary": ["biceps"] }, "equipment": "bilanciere EZ", "loadType": "barbell", "incrementKg": 2.5, "substitutes": [], "blockedByInjury": false },
+
+    { "id": "pec_deck", "name": "Pec deck", "muscleGroups": { "primary": ["chest"], "secondary": [] }, "equipment": "pec deck", "loadType": "machine", "incrementKg": 2.5, "substitutes": ["cable_fly"], "blockedByInjury": false },
+    { "id": "pulldown_neutral", "name": "Pulldown presa neutra", "muscleGroups": { "primary": ["back"], "secondary": ["biceps"] }, "equipment": "lat machine", "loadType": "machine", "incrementKg": 2.5, "substitutes": [], "blockedByInjury": false },
+    { "id": "lateral_raise_machine", "name": "Alzate laterali macchina o cavo", "muscleGroups": { "primary": ["sideDelts"], "secondary": [] }, "equipment": "macchina o cavi", "loadType": "machine", "incrementKg": 2.5, "substitutes": [], "blockedByInjury": false },
+    { "id": "shrug_db", "name": "Shrug con manubri", "muscleGroups": { "primary": ["traps"], "secondary": ["forearms"] }, "equipment": "manubri", "loadType": "dumbbell", "incrementKg": 2, "substitutes": [], "blockedByInjury": false },
+    { "id": "neck_flex_ext", "name": "Collo: flessione ed estensione con piastra leggera", "muscleGroups": { "primary": ["neck"], "secondary": [] }, "equipment": "piastra + panca", "loadType": "plate", "incrementKg": 1.25, "minDaysBetweenIncrements": 14, "substitutes": [], "blockedByInjury": false },
+    { "id": "hammer_curl", "name": "Hammer curl", "muscleGroups": { "primary": ["biceps"], "secondary": ["forearms"] }, "equipment": "manubri", "loadType": "dumbbell", "incrementKg": 2, "substitutes": [], "blockedByInjury": false },
+
+    { "id": "bench_smith", "name": "Panca alla Smith", "muscleGroups": { "primary": ["chest"], "secondary": ["triceps"] }, "equipment": "Smith machine", "loadType": "barbell", "incrementKg": 2.5, "substitutes": [], "blockedByInjury": false },
+    { "id": "chest_press", "name": "Chest press", "muscleGroups": { "primary": ["chest"], "secondary": ["triceps"] }, "equipment": "macchina petto", "loadType": "machine", "incrementKg": 5, "substitutes": [], "blockedByInjury": false },
+    { "id": "tbar_row", "name": "T-bar row", "muscleGroups": { "primary": ["back"], "secondary": ["biceps"] }, "equipment": "T-bar", "loadType": "plate", "incrementKg": 2.5, "substitutes": [], "blockedByInjury": false },
+    { "id": "row_smith", "name": "Rematore alla Smith", "muscleGroups": { "primary": ["back"], "secondary": ["biceps"] }, "equipment": "Smith machine", "loadType": "barbell", "incrementKg": 2.5, "substitutes": [], "blockedByInjury": false },
+    { "id": "seal_row_db", "name": "Seal row con manubri", "muscleGroups": { "primary": ["back"], "secondary": ["rearDelts"] }, "equipment": "manubri + panca", "loadType": "dumbbell", "incrementKg": 2, "substitutes": [], "blockedByInjury": false },
+    { "id": "db_shoulder_press_seated", "name": "Shoulder press con manubri seduto", "muscleGroups": { "primary": ["frontDelts"], "secondary": ["triceps"] }, "equipment": "manubri + panca", "loadType": "dumbbell", "incrementKg": 2, "substitutes": [], "blockedByInjury": false },
+    { "id": "lat_pulldown_heavy", "name": "Lat machine pesante", "muscleGroups": { "primary": ["back"], "secondary": ["biceps"] }, "equipment": "lat machine", "loadType": "machine", "incrementKg": 5, "substitutes": [], "blockedByInjury": false },
+    { "id": "hack_squat", "name": "Hack squat", "muscleGroups": { "primary": ["quads"], "secondary": ["hamsGlutes"] }, "equipment": "hack squat", "loadType": "plate", "incrementKg": 5, "substitutes": [], "blockedByInjury": false },
+    { "id": "rdl_db", "name": "Stacco rumeno con manubri", "muscleGroups": { "primary": ["hamsGlutes"], "secondary": [] }, "equipment": "manubri", "loadType": "dumbbell", "incrementKg": 2, "substitutes": [], "blockedByInjury": false },
+    { "id": "leg_curl", "name": "Leg curl", "muscleGroups": { "primary": ["hamsGlutes"], "secondary": [] }, "equipment": "macchina", "loadType": "machine", "incrementKg": 2.5, "substitutes": [], "blockedByInjury": false },
+    { "id": "hip_thrust_smith", "name": "Hip thrust alla Smith", "muscleGroups": { "primary": ["hamsGlutes"], "secondary": [] }, "equipment": "Smith machine + panca", "loadType": "barbell", "incrementKg": 2.5, "substitutes": [], "blockedByInjury": false },
+    { "id": "rear_delt_fly_db", "name": "Rear delt fly con manubri", "muscleGroups": { "primary": ["rearDelts"], "secondary": [] }, "equipment": "manubri", "loadType": "dumbbell", "incrementKg": 2, "substitutes": [], "blockedByInjury": false },
+    { "id": "calf_leg_press", "name": "Calf su leg press", "muscleGroups": { "primary": ["calves"], "secondary": [] }, "equipment": "leg press", "loadType": "plate", "incrementKg": 5, "substitutes": [], "blockedByInjury": false },
+    { "id": "cable_fly", "name": "Croci ai cavi", "muscleGroups": { "primary": ["chest"], "secondary": [] }, "equipment": "cavi", "loadType": "cable", "incrementKg": 2.5, "substitutes": [], "blockedByInjury": false },
+
+    { "id": "lateral_lunge", "name": "Affondi laterali", "muscleGroups": { "primary": ["quads"], "secondary": ["adductors"] }, "equipment": "manubri", "loadType": "dumbbell", "incrementKg": 2, "substitutes": [], "blockedByInjury": true },
+    { "id": "sumo_deadlift", "name": "Stacco sumo", "muscleGroups": { "primary": ["hamsGlutes"], "secondary": ["adductors"] }, "equipment": "bilanciere", "loadType": "barbell", "incrementKg": 2.5, "substitutes": [], "blockedByInjury": true },
+    { "id": "lateral_bounds", "name": "Balzi laterali", "muscleGroups": { "primary": ["quads"], "secondary": ["adductors"] }, "equipment": "corpo libero", "loadType": "bodyweight", "incrementKg": 0, "substitutes": [], "blockedByInjury": true },
+    { "id": "adductor_machine_heavy", "name": "Adductor machine pesante", "muscleGroups": { "primary": ["adductors"], "secondary": [] }, "equipment": "adductor machine", "loadType": "machine", "incrementKg": 2.5, "substitutes": [], "blockedByInjury": true },
+    { "id": "hanging_leg_raise", "name": "Hanging leg raise", "muscleGroups": { "primary": ["core"], "secondary": ["hipFlexors"] }, "equipment": "sbarra", "loadType": "bodyweight", "incrementKg": 0, "substitutes": [], "blockedByInjury": true },
+    { "id": "adductor_static_stretch", "name": "Stretching statico intenso degli adduttori (farfalla profonda, affondo laterale statico)", "muscleGroups": { "primary": ["adductors"], "secondary": [] }, "equipment": "corpo libero", "loadType": "bodyweight", "incrementKg": 0, "substitutes": [], "blockedByInjury": true }
+  ],
+  "warmups": {
+    "gym": [
+      { "id": "cardio", "text": "5' cardio leggero (bici o corda)" },
+      { "id": "open_book", "text": "Open book 8 per lato" },
+      { "id": "cat_camel", "text": "Cat-camel 10" },
+      { "id": "ankle_wall", "text": "Caviglie al muro 10 per lato" },
+      { "id": "hip_90_90", "text": "90/90 anche 8 per lato, senza forzare" },
+      { "id": "band_pull_apart", "text": "Band pull-apart 2×15" },
+      { "id": "band_ext_rot", "text": "Extrarotazioni con elastico 2×15 per lato" },
+      { "id": "glute_bridge", "text": "Glute bridge 2×12" }
+    ],
+    "lowerExtra": [
+      { "id": "adductor_squeeze_warmup", "text": "Squeeze isometrico adduttori con palla tra le ginocchia 5×10\"" }
+    ],
+    "padelTech": [
+      { "id": "jog", "text": "Corsetta" },
+      { "id": "leg_swings", "text": "Slanci controllati e corti" },
+      { "id": "walking_lunges", "text": "Affondi camminati corti" },
+      { "id": "adductor_squeeze_padel", "text": "Squeeze adduttori 3×10\"" },
+      { "id": "band_ext_rot_padel", "text": "Extrarotazioni con elastico 15 per lato" }
+    ],
+    "padelMatch": [
+      { "id": "match_warmup", "text": "Riscaldamento 15'" }
+    ]
+  },
+  "rehab": {
+    "title": "Blocco riabilitazione inguine",
+    "maxPain": 3,
+    "restSec": 45,
+    "steps": [
+      {
+        "step": 1,
+        "label": "Step 1 (settimane 1-2)",
+        "items": [
+          { "id": "adductor_squeeze_ball", "name": "Squeeze isometrico adduttori con palla tra le ginocchia, supino", "sets": 5, "holdSec": 30, "perSide": false },
+          { "id": "hip_flexor_iso_seated", "name": "Isometria flessori d'anca da seduto (ginocchio spinge contro la mano)", "sets": 3, "holdSec": 10, "perSide": true }
+        ]
+      },
+      {
+        "step": 2,
+        "label": "Step 2 (settimane 3-4)",
+        "items": [
+          { "id": "copenhagen_short", "name": "Copenhagen plank su ginocchio (leva corta)", "sets": 3, "holdSec": 20, "perSide": true },
+          { "id": "band_march", "name": "Marcia con elastico alle caviglie, lenta", "sets": 2, "reps": 10, "perSide": true }
+        ]
+      },
+      {
+        "step": 3,
+        "label": "Step 3 (settimane 5-6)",
+        "items": [
+          { "id": "copenhagen_long", "name": "Copenhagen plank a leva lunga", "sets": 3, "holdSec": 15, "perSide": true },
+          { "id": "adductor_machine_light", "name": "Adductor machine leggera", "sets": 2, "reps": 15, "perSide": false }
+        ]
+      }
+    ]
+  },
+  "days": [
+    {
+      "id": "upperA", "weekday": 1, "type": "upperA", "name": "Upper A",
+      "subtitle": "Pesante — spinta e tirata orizzontale",
+      "warmup": ["gym"], "rampFirstExercise": true,
+      "blocks": [
+        { "id": "A1", "exerciseId": "bench_bb", "sets": 4, "repRange": { "min": 5, "max": 8 }, "rpeTarget": { "min": 8, "max": 8 }, "restSec": 150, "technique": "none", "notes": "Incremento 2,5 kg" },
+        { "id": "A2", "exerciseId": "row_bb", "sets": 4, "repRange": { "min": 6, "max": 10 }, "rpeTarget": { "min": 8, "max": 8 }, "restSec": 120, "technique": "none", "notes": "Busto a 45°, senza slancio. Incremento 2,5 kg" },
+        { "id": "A3", "exerciseId": "incline_db", "sets": 3, "repRange": { "min": 8, "max": 12 }, "rpeTarget": { "min": 8, "max": 9 }, "restSec": 90, "technique": "amrapLast", "notes": "Ultima serie AMRAP una volta a settimana. Incremento 2 kg per mano" },
+        { "id": "A4", "exerciseId": "lat_pulldown_wide", "sets": 3, "repRange": { "min": 8, "max": 12 }, "rpeTarget": { "min": 9, "max": 9 }, "restSec": 90, "technique": "none", "notes": "" },
+        { "id": "A5", "exerciseId": "lateral_raise_cable", "sets": 4, "repRange": { "min": 12, "max": 15 }, "rpeTarget": { "min": 10, "max": 10 }, "restSec": 60, "technique": "dropset", "techniqueSets": 1, "notes": "Drop set nell'ultima serie" },
+        { "id": "A6", "exerciseId": "face_pull", "sets": 3, "repRange": { "min": 15, "max": 20 }, "rpeTarget": { "min": 9, "max": 9 }, "restSec": 60, "technique": "none", "notes": "1\" di tenuta con mani aperte" },
+        { "id": "A7", "exerciseId": "curl_ez", "sets": 3, "repRange": { "min": 8, "max": 12 }, "rpeTarget": { "min": 9, "max": 9 }, "restSec": 60, "technique": "none", "notes": "" },
+        { "id": "A8", "exerciseId": "pushdown_rope", "sets": 3, "repRange": { "min": 10, "max": 15 }, "rpeTarget": { "min": 10, "max": 10 }, "restSec": 60, "technique": "none", "notes": "" },
+        { "id": "A9", "exerciseId": "shrug_bb", "sets": 3, "repRange": { "min": 10, "max": 15 }, "rpeTarget": { "min": 9, "max": 9 }, "restSec": 60, "technique": "none", "notes": "2\" di pausa in alto" }
+      ]
+    },
+    {
+      "id": "padelTue", "weekday": 2, "type": "padelTech", "name": "Padel tecnica",
+      "subtitle": "Campo o piazzale + 15' kettlebell opzionale a casa",
+      "warmup": ["padelTech"], "warmupLabel": "Riscaldamento 12'",
+      "durationMin": { "min": 60, "max": 90 },
+      "checklist": [
+        { "id": "tech", "text": "60-90' di tecnica: volée, bandeja e vibora su lob, uscite di parete, punti a tema" },
+        { "id": "stretch", "text": "Stretching finale (senza stretching intenso degli adduttori)" }
+      ],
+      "rules": ["Fase 1: nessun intervallo ad alta intensità", "Nessun esercizio di shuffle laterale alla massima velocità"],
+      "optionalExtra": {
+        "title": "Extra opzionale a casa (15') — mai al cedimento",
+        "items": [
+          { "id": "kb_press", "text": "Kettlebell press 3×8 per lato" },
+          { "id": "kb_row", "text": "Kettlebell row 3×10 per lato" },
+          { "id": "kb_swing", "text": "Swing 2×10" }
+        ]
+      },
+      "blocks": []
+    },
+    {
+      "id": "lower", "weekday": 3, "type": "lower", "name": "Lower + core",
+      "subtitle": "Gambe, core e blocco riabilitazione inguine",
+      "warmup": ["gym", "lowerExtra"], "rampFirstExercise": true,
+      "blocks": [
+        { "id": "L1", "exerciseId": "squat_bb", "sets": 4, "repRange": { "min": 5, "max": 8 }, "rpeTarget": { "min": 7, "max": 8 }, "restSec": 150, "technique": "none", "notes": "Stance a larghezza spalle, profondità dove l'inguine non dà fastidio. Incremento 2,5 kg" },
+        { "id": "L2", "exerciseId": "rdl_bb", "sets": 3, "repRange": { "min": 8, "max": 10 }, "rpeTarget": { "min": 8, "max": 8 }, "restSec": 120, "technique": "none", "notes": "Incremento 2,5-5 kg" },
+        { "id": "L3", "exerciseId": "leg_press", "sets": 3, "repRange": { "min": 10, "max": 15 }, "rpeTarget": { "min": 9, "max": 9 }, "restSec": 90, "technique": "none", "notes": "Piedi a larghezza spalle, mai larghi" },
+        { "id": "L4", "exerciseId": "hip_thrust_bb", "sets": 3, "repRange": { "min": 8, "max": 12 }, "rpeTarget": { "min": 8, "max": 9 }, "restSec": 90, "technique": "none", "notes": "2\" di tenuta in alto" },
+        { "id": "L5", "exerciseId": "calf_standing", "sets": 4, "repRange": { "min": 12, "max": 15 }, "rpeTarget": { "min": 9, "max": 9 }, "restSec": 60, "technique": "none", "notes": "2\" di pausa in basso" },
+        { "id": "L6", "kind": "rehab", "restSec": 45, "notes": "Mai oltre dolore 3/10. Progressione a step" },
+        { "id": "L7", "exerciseId": "farmers_carry", "sets": 3, "repRange": { "min": 30, "max": 30 }, "unit": "m", "rpeTarget": { "min": 8, "max": 8 }, "restSec": 60, "technique": "none", "notes": "3 × 30 m" },
+        { "id": "L8", "exerciseId": "pallof_press", "sets": 3, "repRange": { "min": 10, "max": 10 }, "perSide": true, "rpeTarget": { "min": 8, "max": 8 }, "restSec": 45, "technique": "none", "notes": "10 per lato" },
+        { "id": "L9", "exerciseId": "cable_crunch", "sets": 3, "repRange": { "min": 12, "max": 15 }, "rpeTarget": { "min": 9, "max": 9 }, "restSec": 60, "technique": "none", "notes": "Niente flessione d'anca dinamica sotto carico (leg raise) finché l'inguine non è sbloccato" }
+      ]
+    },
+    {
+      "id": "upperB", "weekday": 4, "type": "upperB", "name": "Upper B",
+      "subtitle": "Pesante — spinta e tirata verticale",
+      "warmup": ["gym"], "rampFirstExercise": true,
+      "blocks": [
+        { "id": "B1", "exerciseId": "ohp_bb", "sets": 4, "repRange": { "min": 5, "max": 8 }, "rpeTarget": { "min": 8, "max": 8 }, "restSec": 150, "technique": "none", "notes": "Incremento 2,5 kg" },
+        { "id": "B2", "exerciseId": "pullup", "sets": 4, "repRange": { "min": 6, "max": 10 }, "rpeTarget": { "min": 9, "max": 9 }, "restSec": 120, "technique": "eccentric4s", "techniqueSets": 1, "notes": "Assistite con elastico o macchina se sotto le 6 pulite. Eccentrica di 4\" nell'ultima serie. Progressione riducendo l'assistenza" },
+        { "id": "B3", "exerciseId": "bench_db", "sets": 3, "repRange": { "min": 8, "max": 12 }, "rpeTarget": { "min": 8, "max": 9 }, "restSec": 90, "technique": "none", "notes": "Incremento 2 kg per mano" },
+        { "id": "B4", "exerciseId": "row_db_1arm", "sets": 3, "repRange": { "min": 10, "max": 12 }, "perSide": true, "rpeTarget": { "min": 9, "max": 9 }, "restSec": 60, "technique": "amrapLast", "notes": "Per lato. Ultima serie AMRAP una volta a settimana" },
+        { "id": "B5", "exerciseId": "lateral_raise_db", "sets": 4, "repRange": { "min": 10, "max": 15 }, "rpeTarget": { "min": 10, "max": 10 }, "restSec": 60, "technique": "none", "notes": "" },
+        { "id": "B6", "exerciseId": "rear_delt_pecdeck", "sets": 3, "repRange": { "min": 12, "max": 15 }, "rpeTarget": { "min": 9, "max": 9 }, "restSec": 60, "technique": "none", "notes": "" },
+        { "id": "B7", "exerciseId": "incline_db_curl", "sets": 3, "repRange": { "min": 10, "max": 12 }, "rpeTarget": { "min": 9, "max": 9 }, "restSec": 60, "technique": "none", "notes": "" },
+        { "id": "B8", "exerciseId": "overhead_ext_cable", "sets": 3, "repRange": { "min": 10, "max": 12 }, "rpeTarget": { "min": 9, "max": 9 }, "restSec": 60, "technique": "none", "notes": "" },
+        { "id": "B9a", "exerciseId": "wrist_curl", "sets": 3, "repRange": { "min": 15, "max": 15 }, "rpeTarget": { "min": 9, "max": 9 }, "restSec": 45, "technique": "none", "supersetGroup": "B9", "notes": "Avambracci: 3 × 15 ciascuno" },
+        { "id": "B9b", "exerciseId": "reverse_curl", "sets": 3, "repRange": { "min": 15, "max": 15 }, "rpeTarget": { "min": 9, "max": 9 }, "restSec": 45, "technique": "none", "supersetGroup": "B9", "notes": "Avambracci: 3 × 15 ciascuno" }
+      ]
+    },
+    {
+      "id": "padelFri", "weekday": 5, "type": "padelTech", "name": "Padel tecnica con compagni",
+      "subtitle": "Tecnica con compagni + 15' kettlebell opzionale a casa",
+      "warmup": ["padelTech"], "warmupLabel": "Riscaldamento 12'",
+      "durationMin": { "min": 60, "max": 90 },
+      "checklist": [
+        { "id": "tech", "text": "60-90' di tecnica: volée, bandeja e vibora su lob, uscite di parete, punti a tema" },
+        { "id": "stretch", "text": "Stretching finale (senza stretching intenso degli adduttori)" }
+      ],
+      "rules": ["Fase 1: nessun intervallo ad alta intensità", "Nessun esercizio di shuffle laterale alla massima velocità"],
+      "optionalExtra": {
+        "title": "Extra opzionale a casa (15') — mai al cedimento",
+        "items": [
+          { "id": "kb_press", "text": "Kettlebell press 3×8 per lato" },
+          { "id": "kb_row", "text": "Kettlebell row 3×10 per lato" },
+          { "id": "kb_swing", "text": "Swing 2×10" }
+        ]
+      },
+      "blocks": []
+    },
+    {
+      "id": "match", "weekday": 6, "type": "padelMatch", "name": "Partite",
+      "subtitle": "Riscaldamento 15', 90-120' di gioco",
+      "warmup": ["padelMatch"],
+      "durationMin": { "min": 90, "max": 120 },
+      "checklist": [
+        { "id": "play", "text": "90-120' di gioco" }
+      ],
+      "rules": [],
+      "blocks": []
+    },
+    {
+      "id": "upperC", "weekday": 7, "type": "upperC", "name": "Upper C",
+      "subtitle": "Volume e tecniche di intensità — macchine e cavi + camminata",
+      "warmup": ["gym"], "rampFirstExercise": true,
+      "extras": [
+        { "id": "walk", "text": "Camminata 45-60' (anche nel pomeriggio)" }
+      ],
+      "blocks": [
+        { "id": "C1", "exerciseId": "pec_deck", "sets": 2, "repRange": { "min": 12, "max": 15 }, "rpeTarget": { "min": 10, "max": 10 }, "restSec": 60, "technique": "dropset", "techniqueSets": 1, "notes": "Drop set nell'ultima serie" },
+        { "id": "C2", "exerciseId": "pulldown_neutral", "sets": 2, "repRange": { "min": 10, "max": 15 }, "rpeTarget": { "min": 9, "max": 9 }, "restSec": 75, "technique": "myoreps", "techniqueSets": 1, "notes": "Myo-reps nell'ultima serie" },
+        { "id": "C3", "exerciseId": "lateral_raise_machine", "sets": 4, "repRange": { "min": 12, "max": 20 }, "rpeTarget": { "min": 10, "max": 10 }, "restSec": 60, "technique": "dropset", "techniqueSets": 2, "notes": "Drop set nelle ultime 2 serie" },
+        { "id": "C4", "exerciseId": "shrug_db", "sets": 3, "repRange": { "min": 12, "max": 15 }, "rpeTarget": { "min": 9, "max": 9 }, "restSec": 60, "technique": "none", "notes": "2\" di pausa in alto" },
+        { "id": "C5", "exerciseId": "neck_flex_ext", "sets": 2, "repRange": { "min": 15, "max": 20 }, "rpeTarget": { "min": 7, "max": 7 }, "restSec": 45, "technique": "none", "notes": "Progressione lentissima: +1,25 kg ogni 2 settimane al massimo" },
+        { "id": "C6a", "exerciseId": "hammer_curl", "sets": 2, "repRange": { "min": 12, "max": 12 }, "rpeTarget": { "min": 9, "max": 10 }, "restSec": 60, "technique": "none", "supersetGroup": "C6", "notes": "Superset con pushdown" },
+        { "id": "C6b", "exerciseId": "pushdown_rope", "sets": 2, "repRange": { "min": 12, "max": 12 }, "rpeTarget": { "min": 9, "max": 10 }, "restSec": 60, "technique": "none", "supersetGroup": "C6", "notes": "Superset con hammer curl" }
+      ]
+    }
+  ]
+}

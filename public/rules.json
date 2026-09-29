@@ -1,0 +1,115 @@
+{
+  "version": 1,
+  "block": {
+    "lengthWeeks": 6,
+    "deloadWeek": 6
+  },
+  "progression": {
+    "defaultIncrementKg": {
+      "barbell": 2.5,
+      "dumbbell": 2,
+      "machine": 2.5,
+      "cable": 2.5,
+      "plate": 5,
+      "kettlebell": 4,
+      "assisted": 5,
+      "bodyweight": 0
+    },
+    "earlyRaiseMaxRpe": 7,
+    "failureConsecutiveSessions": 2,
+    "failureMinSetsBelowMin": 2,
+    "failureReductionPct": 10,
+    "requireAllPrescribedSets": true
+  },
+  "warmupRamp": {
+    "emptyBarKg": 20,
+    "roundToKg": 2.5,
+    "sets": [
+      { "emptyBar": true, "reps": 8, "label": "Bilanciere vuoto" },
+      { "pct": 50, "reps": 5 },
+      { "pct": 70, "reps": 3 },
+      { "pct": 85, "reps": 1 }
+    ]
+  },
+  "volumeRamp": {
+    "note": "Serie aggiunte (cumulative) a partire dalla settimana indicata, fino alla settimana 5.",
+    "additions": {
+      "2": [
+        { "dayId": "upperA", "blockId": "A3", "group": "chest" },
+        { "dayId": "upperA", "blockId": "A4", "group": "back" },
+        { "dayId": "upperA", "blockId": "A5", "group": "sideDelts" },
+        { "dayId": "upperA", "blockId": "A7", "group": "biceps" }
+      ],
+      "3": [
+        { "dayId": "upperB", "blockId": "B3", "group": "chest" },
+        { "dayId": "upperB", "blockId": "B4", "group": "back" },
+        { "dayId": "upperB", "blockId": "B5", "group": "sideDelts" },
+        { "dayId": "upperB", "blockId": "B8", "group": "triceps" }
+      ],
+      "4": [
+        { "dayId": "upperC", "blockId": "C1", "group": "chest" },
+        { "dayId": "upperC", "blockId": "C2", "group": "back" },
+        { "dayId": "upperC", "blockId": "C3", "group": "sideDelts" },
+        { "dayId": "upperB", "blockId": "B7", "group": "biceps" }
+      ],
+      "5": [
+        { "dayId": "upperA", "blockId": "A3", "group": "chest" },
+        { "dayId": "upperA", "blockId": "A4", "group": "back" },
+        { "dayId": "upperA", "blockId": "A5", "group": "sideDelts" },
+        { "dayId": "upperA", "blockId": "A8", "group": "triceps" }
+      ]
+    }
+  },
+  "deload": {
+    "setsFactor": 0.5,
+    "baseWeek": 5,
+    "rpeTarget": { "min": 6, "max": 7 },
+    "removeTechniques": true,
+    "walkOnlyDays": ["upperC"]
+  },
+  "nutrition": {
+    "gymDayDeltaKcal": -50,
+    "padelDayDeltaKcal": -300,
+    "gymDayTypes": ["upperA", "lower", "upperB", "upperC"],
+    "padelDayTypes": ["padelTech", "padelMatch"],
+    "proteinPerKg": 2.1,
+    "proteinRoundG": 5,
+    "creatineG": 5,
+    "stepsTarget": { "min": 8000, "max": 10000 },
+    "setupDays": 4,
+    "maintenanceRoundKcal": 10,
+    "checkEveryWeeks": 2,
+    "minWeighInsPerWindow": 3,
+    "lossTooFastKgPerWeek": 0.5,
+    "gainTooFastKgPerWeek": 0.3,
+    "stableKgPerWeek": 0.3,
+    "waistDropCm": 1,
+    "waistToleranceDays": 5,
+    "stableWeeks": 4,
+    "adjustKcal": 150
+  },
+  "injury": {
+    "painFlagMin": 4,
+    "over24hFlags": true,
+    "lowerSwap": { "from": "squat_bb", "to": "leg_press" },
+    "padelReducedMin": 60,
+    "physioPainMin": 5,
+    "physioCount": 2,
+    "physioWindowDays": 14,
+    "clearWeeks": 4,
+    "rehabMaxPain": 3,
+    "rehabAdvancePainMax": 2,
+    "rehabAdvanceWeeks": 2,
+    "followUpDays": 3
+  },
+  "weekly": {
+    "sleepMinH": 6.5,
+    "sleepConsecutiveWeeks": 2,
+    "restingHrDeltaBpm": 5,
+    "restingHrBaselineWeeks": 4,
+    "rpeReduction": 1
+  },
+  "bodyFat": {
+    "formula": "usNavyMale"
+  }
+}
