@@ -197,3 +197,8 @@ td.r, th.r { text-align: right; }
 }
 .print-sheet h1 { font-size: 1.2rem; }
 .write-box { display: inline-block; min-width: 40px; border-bottom: 1px solid var(--border); height: 1.1em; }
+
+summary { cursor: pointer; list-style: none; }
+summary::-webkit-details-marker { display: none; }
+details > summary h3::after, details > summary h2::after { content: ' ▾'; color: var(--muted); font-weight: 400; }
+details[open] > summary h3::after, details[open] > summary h2::after { content: ' ▴'; }

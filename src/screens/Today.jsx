@@ -237,7 +237,7 @@ function PadelDay({ plan, session }) {
     <div>
       {p.suspended && <div class="alert danger">Padel sospeso questa settimana. Registra comunque se giochi.</div>}
       <div class="card">
-        <h3>Durata {p.durationMinMin}-{p.durationMaxMin}'</h3>
+        <h3>{p.reduced ? `Durata massima ${p.durationMaxMin}'` : `Durata ${p.durationMinMin}-${p.durationMaxMin}'`}</h3>
         {(plan.day.rules || []).map((r) => <p key={r} class="small muted">• {r}</p>)}
         {p.reduced && <p class="small" style={{ color: 'var(--warn)' }}>• Oggi niente esercizi laterali, massimo {p.durationMaxMin}'.</p>}
       </div>

@@ -38,7 +38,8 @@ export function App() {
   const route = useHashRoute();
   const [config, setConfig] = useState(null);
   const [toastMsg, setToastMsg] = useState(null);
-  const stored = useLive(() => db.kv.get('settings'), [], undefined);
+  // null = no settings saved yet; undefined = still loading.
+  const stored = useLive(() => db.kv.get('settings').then((r) => r || null), [], undefined);
   const settings = stored === undefined ? null : { ...defaultSettings(), ...(stored?.value || {}) };
 
   const reload = async () => setConfig(await loadConfig());
