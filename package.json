@@ -10,7 +10,8 @@
     "test": "vitest run",
     "test:watch": "vitest",
     "icons": "node scripts/make-icons.mjs",
-    "validate": "node scripts/validate-config.mjs"
+    "validate": "node scripts/validate-config.mjs",
+    "deploy:check": "npm run validate && npm test && npm run build"
   },
   "dependencies": {
     "dexie": "^4.4.6",
