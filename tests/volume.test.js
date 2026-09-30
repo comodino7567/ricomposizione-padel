@@ -7,14 +7,14 @@ const setsOf = (dayId, week) => Object.fromEntries(prescribeDay(program, rules, 
 describe('weekly volume ramp', () => {
   it('week 1 matches the program table', () => {
     expect(plannedVolume(program, rules, 1)).toEqual({
-      chest: 12, back: 16, sideDelts: 12, rearDelts: 6, biceps: 8, triceps: 8, traps: 6, quads: 7, hamsGlutes: 6, calves: 4,
+      chest: 12, back: 16, sideDelts: 12, rearDelts: 6, biceps: 8, triceps: 8, traps: 6, quads: 3, hamsGlutes: 6, calves: 3,
     });
   });
 
   it('week 5 reaches chest 16, back 20, laterals 16, biceps 10, triceps 10', () => {
     const v = plannedVolume(program, rules, 5);
     expect(v).toMatchObject({ chest: 16, back: 20, sideDelts: 16, biceps: 10, triceps: 10 });
-    expect(v).toMatchObject({ rearDelts: 6, traps: 6, quads: 7, hamsGlutes: 6, calves: 4 });
+    expect(v).toMatchObject({ rearDelts: 6, traps: 6, quads: 3, hamsGlutes: 6, calves: 3 });
   });
 
   it('+1 chest/back/laterals per week from week 2 to 5', () => {

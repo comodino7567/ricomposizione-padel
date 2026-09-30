@@ -4,7 +4,7 @@ import { hashParam, useApp } from '../hooks.js';
 import { fmtKg } from '../components/ui.jsx';
 import { useDayPlan } from './Today.jsx';
 
-const range = (r) => (r.min === r.max ? `${r.min}` : `${r.min}-${r.max}`);
+const range = (r) => (!r ? '—' : r.min === r.max ? `${r.min}` : `${r.min}-${r.max}`);
 
 export function PrintToday() {
   const { program } = useApp();
@@ -78,9 +78,9 @@ export function PrintToday() {
                       {b.injurySwap ? <div class="tiny">al posto dello squat (inguine)</div> : null}
                     </td>
                     <td class="num small">
-                      {b.sets}×{range(b.repRange)}{b.unit === 'm' ? ' m' : ''}{b.perSide ? '/lato' : ''} @{range(b.rpeTarget)} · {b.restSec}"
+                      {b.sets}×{range(b.repRange)}{b.unit === 'm' ? ' m' : b.unit === 's' ? '"' : ''}{b.perSide ? '/lato' : ''}{b.rpeTarget ? ` @${range(b.rpeTarget)}` : ''} · {b.restSec}"
                     </td>
-                    <td class="r num"><b>{b.target.weightKg == null ? '___' : fmtKg(b.target.weightKg)}</b></td>
+                    <td class="r num"><b>{b.exercise.loadType === 'bodyweight' ? 'c.l.' : b.target.weightKg == null ? '___' : fmtKg(b.target.weightKg)}</b></td>
                     {Array.from({ length: maxSets }, (_, i) => (
                       <td key={i} class="small">{i < b.sets ? <span class="write-box" /> : ''}</td>
                     ))}

@@ -70,14 +70,23 @@ export function buildDayPlan({ program, rules, settings, date, sessions, dayId, 
     if (mods.padelSuspended) alerts.push({ level: 'danger', text: 'Padel sospeso questa settimana (decisione confermata nel check).' });
     if (reduced) alerts.push({ level: 'warn', text: `Inguine: seduta padel ridotta a ${rules.injury.padelReducedMin}' senza esercizi laterali.` });
   }
+  const skipExplosive = day.type === 'lower' && injury.lowerSwapActive && rules.injury.lowerSkipExplosive;
   if (day.type === 'lower' && injury.lowerSwapActive) {
-    alerts.push({ level: 'warn', text: 'Inguine: oggi lo squat è sostituito dalla leg press e il blocco riabilitazione non avanza.' });
+    const hasSquat = day.blocks.some((b) => b.exerciseId === rules.injury.lowerSwap.from);
+    const parts = [
+      hasSquat ? 'lo squat è sostituito dalla leg press' : null,
+      skipExplosive && day.blocks.some((b) => b.explosive) ? 'niente lavoro esplosivo (corda, salti, pogo)' : null,
+    ].filter(Boolean);
+    alerts.push({ level: 'warn', text: `Inguine: oggi ${parts.join(' e ') || 'seduta prudente'}; il blocco riabilitazione non avanza.` });
   }
 
   const blocks = (skipped ? [] : pres.blocks).map((b) => {
     if (b.kind === 'rehab') {
       return { ...b, rehab: rehabStep(program, settings.adductorStep || 1), maxPain: program.rehab?.maxPain };
     }
+    const stepKey = settings.injuryUnlocked ? 'unlocked' : String(settings.adductorStep || 1);
+    const stepNote = b.stepNotes?.[stepKey] || null;
+    const skippedForInjury = !!(skipExplosive && b.explosive);
     const { exerciseId, substitutedFrom, injurySwap } = resolveExercise(b, program, settings, rules, injury, day.type);
     const exercise = exerciseById(program, exerciseId);
     const history = exerciseHistory(sessions, exerciseId, day.id, date);
@@ -88,6 +97,8 @@ export function buildDayPlan({ program, rules, settings, date, sessions, dayId, 
       ...b,
       exerciseId,
       exercise,
+      stepNote,
+      skippedForInjury,
       substitutedFrom,
       injurySwap,
       target,
@@ -99,7 +110,7 @@ export function buildDayPlan({ program, rules, settings, date, sessions, dayId, 
 
   let ramp = null;
   if (day.rampFirstExercise) {
-    const first = blocks.find((b) => b.kind !== 'rehab');
+    const first = blocks.find((b) => b.kind !== 'rehab' && !b.skippedForInjury && (b.progression || 'double') !== 'none');
     if (first) ramp = { exercise: first.exercise, sets: rampSets(first.target.weightKg, first.exercise, rules) };
   }
 

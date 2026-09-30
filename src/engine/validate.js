@@ -52,9 +52,16 @@ export function validateProgram(p) {
       blockIds.add(b.id);
       if (b.kind === 'rehab') continue;
       if (!ids.has(b.exerciseId)) errors.push(`${bw}: esercizio sconosciuto ${b.exerciseId}`);
+      const ex = p.exercises.find((e) => e.id === b.exerciseId);
       if (!Number.isInteger(b.sets) || b.sets < 1) errors.push(`${bw}: sets deve essere un intero ≥ 1`);
       if (!b.repRange || !isNum(b.repRange.min) || !isNum(b.repRange.max) || b.repRange.min > b.repRange.max) errors.push(`${bw}: repRange non valido`);
-      if (!b.rpeTarget || !isNum(b.rpeTarget.min) || !isNum(b.rpeTarget.max) || b.rpeTarget.min > b.rpeTarget.max) errors.push(`${bw}: rpeTarget non valido`);
+      const needsRpe = (b.progression || 'double') !== 'none' && ex?.loadType !== 'bodyweight';
+      if (b.rpeTarget || needsRpe) {
+        if (!b.rpeTarget || !isNum(b.rpeTarget.min) || !isNum(b.rpeTarget.max) || b.rpeTarget.min > b.rpeTarget.max) errors.push(`${bw}: rpeTarget non valido`);
+      }
+      if (!['double', 'none'].includes(b.progression || 'double')) errors.push(`${bw}: progression deve essere "double" o "none"`);
+      if (!['reps', 'm', 's'].includes(b.unit || 'reps')) errors.push(`${bw}: unit deve essere "reps", "m" o "s"`);
+      if (b.maxLoadKg != null && !isNum(b.maxLoadKg)) errors.push(`${bw}: maxLoadKg deve essere un numero`);
       if (!isNum(b.restSec)) errors.push(`${bw}: restSec mancante`);
       if (!TECHNIQUES.includes(b.technique || 'none')) errors.push(`${bw}: technique non valida (${b.technique})`);
     }

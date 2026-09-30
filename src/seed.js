@@ -11,6 +11,7 @@ const START_LOADS = {
   farmers_carry: 24, pallof_press: 15, cable_crunch: 30, ohp_bb: 40, pullup: 25, bench_db: 22, row_db_1arm: 26,
   lateral_raise_db: 8, rear_delt_pecdeck: 30, incline_db_curl: 10, overhead_ext_cable: 20, wrist_curl: 12, reverse_curl: 20,
   pec_deck: 45, pulldown_neutral: 50, lateral_raise_machine: 20, shrug_db: 30, neck_flex_ext: 5, hammer_curl: 12,
+  split_squat_db: 6, sl_rdl_db: 6, sl_calf_raise_db: 6,
 };
 
 // Deterministic pseudo-random (mulberry32).
@@ -102,14 +103,14 @@ export function generateSeed(program, rules, today = todayISO()) {
       const ex = program.exercises.find((e) => e.id === b.exerciseId);
       const history = exerciseHistory(sessions, ex.id, day.id, date);
       const target = nextTarget({ exercise: ex, prescribed: b, history, rules, today: date });
-      const load = target.weightKg ?? START_LOADS[ex.id] ?? 20;
+      const load = ex.loadType === 'bodyweight' ? 0 : target.weightKg ?? START_LOADS[ex.id] ?? 20;
       if (target.action === 'increase' || target.action === 'reduce') bonus[ex.id] = 0;
       const k = bonus[ex.id] || 0;
       const sets = [];
       for (let i = 0; i < b.sets; i++) {
         const noise = k === 0 && i >= 2 && rand() < 0.5 ? -1 : 0;
         const reps = Math.max(b.repRange.min - 1, Math.min(b.repRange.max, b.repRange.min + 1 + k + noise));
-        const rpe = reps >= b.repRange.max ? Math.max(6, b.rpeTarget.max - 0.5) : b.rpeTarget.max;
+        const rpe = !b.rpeTarget ? null : reps >= b.repRange.max ? Math.max(6, b.rpeTarget.max - 0.5) : b.rpeTarget.max;
         sets.push({ weightKg: load, reps, rpe, technique: 'none' });
       }
       bonus[ex.id] = k + 3;

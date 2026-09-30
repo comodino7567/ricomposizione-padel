@@ -49,7 +49,7 @@ function prescribeBlock(block, day, rules, blockWeek, isDeload, rpeDelta) {
       ...block,
       baseSets: block.sets,
       sets: Math.ceil(peak * rules.deload.setsFactor),
-      rpeTarget: { ...rules.deload.rpeTarget },
+      rpeTarget: block.rpeTarget ? { ...rules.deload.rpeTarget } : undefined,
       technique: rules.deload.removeTechniques ? 'none' : block.technique,
       techniqueSets: rules.deload.removeTechniques ? 0 : block.techniqueSets,
       deload: true,
@@ -60,7 +60,7 @@ function prescribeBlock(block, day, rules, blockWeek, isDeload, rpeDelta) {
     ...block,
     baseSets: block.sets,
     sets: block.sets + extraSetsFor(rules, day.id, block.id, blockWeek),
-    rpeTarget: rpeDelta ? { min: rpe.min + rpeDelta, max: rpe.max + rpeDelta } : { ...rpe },
+    rpeTarget: rpe && rpeDelta ? { min: rpe.min + rpeDelta, max: rpe.max + rpeDelta } : rpe && { ...rpe },
     deload: false,
   };
 }
@@ -89,14 +89,16 @@ export function snapshotPrescription(block) {
     sets: block.sets,
     repMin: block.repRange.min,
     repMax: block.repRange.max,
-    rpeMin: block.rpeTarget.min,
-    rpeMax: block.rpeTarget.max,
+    rpeMin: block.rpeTarget?.min ?? null,
+    rpeMax: block.rpeTarget?.max ?? null,
     technique: block.technique || 'none',
     techniqueSets: block.techniqueSets || 0,
     restSec: block.restSec,
     unit: block.unit || 'reps',
     perSide: !!block.perSide,
     deload: !!block.deload,
+    progression: block.progression || 'double',
+    maxLoadKg: block.maxLoadKg ?? null,
   };
 }
 

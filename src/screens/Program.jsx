@@ -129,8 +129,8 @@ export function ProgramScreen() {
                             {b.technique && b.technique !== 'none' && <div class="tiny muted">{program.techniques[b.technique].label}</div>}
                           </td>
                           <td class="r num">{b.sets}{b.sets !== b.baseSets ? <span class="tiny muted"> ({b.baseSets})</span> : null}</td>
-                          <td class="r num">{b.repRange.min === b.repRange.max ? b.repRange.min : `${b.repRange.min}-${b.repRange.max}`}{b.unit === 'm' ? ' m' : ''}</td>
-                          <td class="r num">{b.rpeTarget.min === b.rpeTarget.max ? b.rpeTarget.min : `${b.rpeTarget.min}-${b.rpeTarget.max}`}</td>
+                          <td class="r num">{b.repRange.min === b.repRange.max ? b.repRange.min : `${b.repRange.min}-${b.repRange.max}`}{b.unit === 'm' ? ' m' : b.unit === 's' ? '"' : ''}</td>
+                          <td class="r num">{!b.rpeTarget ? '—' : b.rpeTarget.min === b.rpeTarget.max ? b.rpeTarget.min : `${b.rpeTarget.min}-${b.rpeTarget.max}`}</td>
                           <td class="r num">{b.restSec}"</td>
                         </tr>
                       );

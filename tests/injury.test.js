@@ -2,25 +2,37 @@ import { describe, expect, it } from 'vitest';
 import { addDays } from '../src/engine/dates.js';
 import { applyPainToRehab, injuryState, pendingFollowUps } from '../src/engine/injury.js';
 import { buildDayPlan } from '../src/engine/plan.js';
-import { baseSettings, program, rules } from './helpers.js';
+import { baseSettings, clone, program, rules } from './helpers.js';
 
 const log = (date, dayType, pain, over24h = false) => ({ date, dayType, programDayId: dayType, groinPain0to10: pain, groinPainOver24h: over24h, status: 'done', entries: [] });
 const state = (sessions, date, extra) => injuryState({ sessions, date, rules, settings: baseSettings(extra) });
 
 describe('pain flags', () => {
-  it('pain >= 4 swaps squat → leg press in the next Lower and reduces the next padel', () => {
+  it('pain >= 4 removes the explosive work from the next Lower and reduces the next padel', () => {
     const sessions = [log('2026-10-03', 'padelMatch', 4)];
     const s = state(sessions, '2026-10-07');
     expect(s.lowerSwapActive).toBe(true);
     expect(s.padelReducedActive).toBe(true);
 
     const plan = buildDayPlan({ program, rules, settings: baseSettings(), date: '2026-10-07', sessions });
-    const l1 = plan.blocks.find((b) => b.id === 'L1');
-    expect(l1.exerciseId).toBe('leg_press');
-    expect(plan.alerts.some((a) => a.text.includes('squat'))).toBe(true);
+    const skipped = plan.blocks.filter((b) => b.skippedForInjury).map((b) => b.id);
+    expect(skipped).toEqual(['L1', 'L2', 'L3']);
+    expect(plan.alerts.some((a) => a.text.includes('esplosivo'))).toBe(true);
 
     const padel = buildDayPlan({ program, rules, settings: baseSettings(), date: '2026-10-06', sessions });
     expect(padel.padel).toMatchObject({ reduced: true, durationMaxMin: 60 });
+  });
+
+  it('a squat in the Lower day is still swapped for the leg press', () => {
+    const p = clone(program);
+    p.days.find((d) => d.id === 'lower').blocks[3].exerciseId = 'squat_bb';
+    const plan = buildDayPlan({ program: p, rules, settings: baseSettings(), date: '2026-10-07', sessions: [log('2026-10-03', 'padelMatch', 4)] });
+    expect(plan.blocks[3].exerciseId).toBe('leg_press');
+  });
+
+  it('without flags the explosive work is there', () => {
+    const plan = buildDayPlan({ program, rules, settings: baseSettings(), date: '2026-10-07', sessions: [] });
+    expect(plan.blocks.some((b) => b.skippedForInjury)).toBe(false);
   });
 
   it('pain lasting > 24h also flags, even when low', () => {
@@ -105,7 +117,16 @@ describe('rehab steps', () => {
   });
   it('rehab block shows the current step', () => {
     const plan = buildDayPlan({ program, rules, settings: baseSettings({ adductorStep: 2 }), date: '2026-09-30', sessions: [] });
-    expect(plan.blocks.find((b) => b.id === 'L6').rehab.step).toBe(2);
+    expect(plan.blocks.find((b) => b.kind === 'rehab').rehab.step).toBe(2);
+  });
+});
+
+describe('explosive progression follows the rehab step', () => {
+  const note = (extra) => buildDayPlan({ program, rules, settings: baseSettings(extra), date: '2026-10-07', sessions: [] }).blocks.find((b) => b.id === 'L2').stepNote;
+  it('shows the note for the current step', () => {
+    expect(note({ adductorStep: 1 })).toMatch(/^Step 1/);
+    expect(note({ adductorStep: 3 })).toMatch(/^Step 3/);
+    expect(note({ adductorStep: 3, injuryUnlocked: true })).toMatch(/laterali/);
   });
 });
 

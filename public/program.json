@@ -17,6 +17,7 @@
     "forearms": "Avambracci",
     "neck": "Collo",
     "core": "Core",
+    "power": "Potenza e rapidità",
     "adductors": "Adduttori",
     "hipFlexors": "Flessori d'anca"
   },
@@ -47,6 +48,16 @@
     { "id": "farmers_carry", "name": "Farmer's carry", "muscleGroups": { "primary": ["forearms"], "secondary": ["traps", "core"] }, "equipment": "manubri o kettlebell", "loadType": "dumbbell", "incrementKg": 2, "substitutes": [], "blockedByInjury": false },
     { "id": "pallof_press", "name": "Pallof press al cavo", "muscleGroups": { "primary": ["core"], "secondary": [] }, "equipment": "cavi", "loadType": "cable", "incrementKg": 2.5, "substitutes": [], "blockedByInjury": false },
     { "id": "cable_crunch", "name": "Crunch al cavo", "muscleGroups": { "primary": ["core"], "secondary": [] }, "equipment": "cavi + corda", "loadType": "cable", "incrementKg": 2.5, "substitutes": [], "blockedByInjury": false },
+    { "id": "jump_rope", "name": "Corda veloce a piedi pari", "muscleGroups": { "primary": ["power"], "secondary": ["calves"] }, "equipment": "corda", "loadType": "bodyweight", "incrementKg": 0, "substitutes": [], "blockedByInjury": false },
+    { "id": "cmj_stick", "name": "Salto verticale con atterraggio fermo", "muscleGroups": { "primary": ["power"], "secondary": ["quads", "hamsGlutes"] }, "equipment": "corpo libero", "loadType": "bodyweight", "incrementKg": 0, "substitutes": [], "blockedByInjury": false },
+    { "id": "pogo_hops", "name": "Pogo hops sul posto", "muscleGroups": { "primary": ["power"], "secondary": ["calves"] }, "equipment": "corpo libero", "loadType": "bodyweight", "incrementKg": 0, "substitutes": [], "blockedByInjury": false },
+    { "id": "split_squat_db", "name": "Split squat con manubri", "muscleGroups": { "primary": ["quads"], "secondary": ["hamsGlutes"] }, "equipment": "manubri", "loadType": "dumbbell", "incrementKg": 2, "substitutes": ["bulgarian_split_squat_db"], "blockedByInjury": false },
+    { "id": "bulgarian_split_squat_db", "name": "Split squat bulgaro con manubri", "muscleGroups": { "primary": ["quads"], "secondary": ["hamsGlutes"] }, "equipment": "manubri + rialzo", "loadType": "dumbbell", "incrementKg": 2, "substitutes": [], "blockedByInjury": false },
+    { "id": "sl_rdl_db", "name": "Stacco rumeno su una gamba con manubri", "muscleGroups": { "primary": ["hamsGlutes"], "secondary": [] }, "equipment": "manubri", "loadType": "dumbbell", "incrementKg": 2, "substitutes": [], "blockedByInjury": false },
+    { "id": "sl_glute_bridge", "name": "Ponte glutei su una gamba", "muscleGroups": { "primary": ["hamsGlutes"], "secondary": [] }, "equipment": "tappetino", "loadType": "bodyweight", "incrementKg": 0, "substitutes": [], "blockedByInjury": false },
+    { "id": "sl_calf_raise_db", "name": "Calf su una gamba su un gradino", "muscleGroups": { "primary": ["calves"], "secondary": [] }, "equipment": "gradino + manubrio", "loadType": "dumbbell", "incrementKg": 2, "substitutes": [], "blockedByInjury": false },
+    { "id": "dead_bug", "name": "Dead bug", "muscleGroups": { "primary": ["core"], "secondary": [] }, "equipment": "tappetino", "loadType": "bodyweight", "incrementKg": 0, "substitutes": [], "blockedByInjury": false },
+    { "id": "plank", "name": "Plank", "muscleGroups": { "primary": ["core"], "secondary": [] }, "equipment": "tappetino", "loadType": "bodyweight", "incrementKg": 0, "substitutes": [], "blockedByInjury": false },
 
     { "id": "ohp_bb", "name": "Military press bilanciere in piedi", "muscleGroups": { "primary": ["frontDelts"], "secondary": ["triceps", "sideDelts"] }, "equipment": "rack + bilanciere", "loadType": "barbell", "incrementKg": 2.5, "substitutes": ["db_shoulder_press_seated"], "blockedByInjury": false },
     { "id": "pullup", "name": "Trazioni", "muscleGroups": { "primary": ["back"], "secondary": ["biceps"] }, "equipment": "sbarra + elastico o macchina assistita", "loadType": "assisted", "incrementKg": 5, "substitutes": ["lat_pulldown_heavy"], "blockedByInjury": false },
@@ -99,6 +110,22 @@
       { "id": "band_ext_rot", "text": "Extrarotazioni con elastico 2×15 per lato" },
       { "id": "glute_bridge", "text": "Glute bridge 2×12" }
     ],
+    "homeLower": [
+      { "id": "rope_easy", "text": "5' di corda facile" },
+      { "id": "open_book", "text": "Open book 8 per lato" },
+      { "id": "cat_camel", "text": "Cat-camel 10" },
+      { "id": "ankle_wall", "text": "Caviglie al muro 10 per lato" },
+      { "id": "hip_90_90", "text": "90/90 anche 8 per lato, senza forzare" },
+      { "id": "thoracic_roller", "text": "Estensioni della schiena alta sul rullo 8-10" },
+      { "id": "glute_bridge", "text": "Glute bridge 2×12" },
+      { "id": "adductor_squeeze_warmup", "text": "Squeeze isometrico adduttori con cuscino o asciugamano tra le ginocchia 5×10\"" }
+    ],
+    "physio": [
+      { "id": "physio_reverse_fly", "text": "Esercizio del fisio (postura): pec deck inverso leggero 2×15 — braccia davanti, apri a croce chiudendo le scapole" }
+    ],
+    "physioHome": [
+      { "id": "physio_reverse_fly_db", "text": "Esercizio del fisio (postura): rear fly a busto flesso con manubri 2×15 — apri a croce chiudendo le scapole (se 6 kg sono troppi, Y-T-W a terra senza peso)" }
+    ],
     "lowerExtra": [
       { "id": "adductor_squeeze_warmup", "text": "Squeeze isometrico adduttori con palla tra le ginocchia 5×10\"" }
     ],
@@ -122,7 +149,7 @@
         "step": 1,
         "label": "Step 1 (settimane 1-2)",
         "items": [
-          { "id": "adductor_squeeze_ball", "name": "Squeeze isometrico adduttori con palla tra le ginocchia, supino", "sets": 5, "holdSec": 30, "perSide": false },
+          { "id": "adductor_squeeze_ball", "name": "Squeeze isometrico adduttori con palla o cuscino tra le ginocchia, supino", "sets": 5, "holdSec": 30, "perSide": false },
           { "id": "hip_flexor_iso_seated", "name": "Isometria flessori d'anca da seduto (ginocchio spinge contro la mano)", "sets": 3, "holdSec": 10, "perSide": true }
         ]
       },
@@ -148,7 +175,7 @@
     {
       "id": "upperA", "weekday": 1, "type": "upperA", "name": "Upper A",
       "subtitle": "Pesante — spinta e tirata orizzontale",
-      "warmup": ["gym"], "rampFirstExercise": true,
+      "warmup": ["gym", "physio"], "rampFirstExercise": true,
       "blocks": [
         { "id": "A1", "exerciseId": "bench_bb", "sets": 4, "repRange": { "min": 5, "max": 8 }, "rpeTarget": { "min": 8, "max": 8 }, "restSec": 150, "technique": "none", "notes": "Incremento 2,5 kg" },
         { "id": "A2", "exerciseId": "row_bb", "sets": 4, "repRange": { "min": 6, "max": 10 }, "rpeTarget": { "min": 8, "max": 8 }, "restSec": 120, "technique": "none", "notes": "Busto a 45°, senza slancio. Incremento 2,5 kg" },
@@ -182,25 +209,32 @@
       "blocks": []
     },
     {
-      "id": "lower", "weekday": 3, "type": "lower", "name": "Lower + core",
-      "subtitle": "Gambe, core e blocco riabilitazione inguine",
-      "warmup": ["gym", "lowerExtra"], "rampFirstExercise": true,
+      "id": "lower", "weekday": 3, "type": "lower", "name": "Lower a casa",
+      "subtitle": "Potenza e rapidità, forza su una gamba, core e riabilitazione inguine",
+      "warmup": ["homeLower", "physioHome"], "rampFirstExercise": false,
       "blocks": [
-        { "id": "L1", "exerciseId": "squat_bb", "sets": 4, "repRange": { "min": 5, "max": 8 }, "rpeTarget": { "min": 7, "max": 8 }, "restSec": 150, "technique": "none", "notes": "Stance a larghezza spalle, profondità dove l'inguine non dà fastidio. Incremento 2,5 kg" },
-        { "id": "L2", "exerciseId": "rdl_bb", "sets": 3, "repRange": { "min": 8, "max": 10 }, "rpeTarget": { "min": 8, "max": 8 }, "restSec": 120, "technique": "none", "notes": "Incremento 2,5-5 kg" },
-        { "id": "L3", "exerciseId": "leg_press", "sets": 3, "repRange": { "min": 10, "max": 15 }, "rpeTarget": { "min": 9, "max": 9 }, "restSec": 90, "technique": "none", "notes": "Piedi a larghezza spalle, mai larghi" },
-        { "id": "L4", "exerciseId": "hip_thrust_bb", "sets": 3, "repRange": { "min": 8, "max": 12 }, "rpeTarget": { "min": 8, "max": 9 }, "restSec": 90, "technique": "none", "notes": "2\" di tenuta in alto" },
-        { "id": "L5", "exerciseId": "calf_standing", "sets": 4, "repRange": { "min": 12, "max": 15 }, "rpeTarget": { "min": 9, "max": 9 }, "restSec": 60, "technique": "none", "notes": "2\" di pausa in basso" },
-        { "id": "L6", "kind": "rehab", "restSec": 45, "notes": "Mai oltre dolore 3/10. Progressione a step" },
-        { "id": "L7", "exerciseId": "farmers_carry", "sets": 3, "repRange": { "min": 30, "max": 30 }, "unit": "m", "rpeTarget": { "min": 8, "max": 8 }, "restSec": 60, "technique": "none", "notes": "3 × 30 m" },
-        { "id": "L8", "exerciseId": "pallof_press", "sets": 3, "repRange": { "min": 10, "max": 10 }, "perSide": true, "rpeTarget": { "min": 8, "max": 8 }, "restSec": 45, "technique": "none", "notes": "10 per lato" },
-        { "id": "L9", "exerciseId": "cable_crunch", "sets": 3, "repRange": { "min": 12, "max": 15 }, "rpeTarget": { "min": 9, "max": 9 }, "restSec": 60, "technique": "none", "notes": "Niente flessione d'anca dinamica sotto carico (leg raise) finché l'inguine non è sbloccato" }
+        { "id": "L1", "exerciseId": "jump_rope", "sets": 6, "repRange": { "min": 20, "max": 20 }, "unit": "s", "restSec": 40, "technique": "none", "progression": "none", "explosive": true, "notes": "Veloce, contatti brevi, a piedi pari" },
+        { "id": "L2", "exerciseId": "cmj_stick", "sets": 4, "repRange": { "min": 3, "max": 3 }, "restSec": 90, "technique": "none", "progression": "none", "explosive": true, "notes": "Tieni l'atterraggio 2\". Ti fermi appena cala la qualità",
+          "stepNotes": {
+            "1": "Step 1: salti all'80% dello sforzo, solo in verticale",
+            "2": "Step 2: salti massimali; puoi aggiungere 2×3 salti in lungo con atterraggio fermo",
+            "3": "Step 3: puoi aggiungere 2×3 saltelli su una gamba in avanti per lato",
+            "unlocked": "Inguine sbloccato: puoi introdurre skater jump e primi passi laterali veloci"
+          } },
+        { "id": "L3", "exerciseId": "pogo_hops", "sets": 3, "repRange": { "min": 15, "max": 15 }, "unit": "s", "restSec": 60, "technique": "none", "progression": "none", "explosive": true, "notes": "Rapidità di caviglia, ginocchia quasi tese" },
+        { "id": "L4", "exerciseId": "split_squat_db", "sets": 3, "repRange": { "min": 8, "max": 12 }, "perSide": true, "maxLoadKg": 6, "rpeTarget": { "min": 8, "max": 8 }, "restSec": 60, "technique": "none", "notes": "Discesa in 3\", passo corto, profondità dove l'inguine non dà fastidio" },
+        { "id": "L5", "exerciseId": "sl_rdl_db", "sets": 3, "repRange": { "min": 8, "max": 12 }, "perSide": true, "maxLoadKg": 6, "rpeTarget": { "min": 8, "max": 8 }, "restSec": 60, "technique": "none", "notes": "Una mano sul rack se serve per l'equilibrio" },
+        { "id": "L6", "exerciseId": "sl_glute_bridge", "sets": 3, "repRange": { "min": 10, "max": 15 }, "perSide": true, "rpeTarget": { "min": 8, "max": 9 }, "restSec": 45, "technique": "none", "notes": "2\" di tenuta in alto" },
+        { "id": "L7", "exerciseId": "sl_calf_raise_db", "sets": 3, "repRange": { "min": 12, "max": 20 }, "perSide": true, "maxLoadKg": 6, "rpeTarget": { "min": 9, "max": 9 }, "restSec": 45, "technique": "none", "notes": "Discesa completa sotto il gradino" },
+        { "id": "L8", "kind": "rehab", "restSec": 45, "notes": "Mai oltre dolore 3/10. Progressione a step" },
+        { "id": "L9", "exerciseId": "dead_bug", "sets": 3, "repRange": { "min": 8, "max": 8 }, "perSide": true, "restSec": 45, "technique": "none", "progression": "none", "notes": "Zona lombare schiacciata a terra (contro l'iperlordosi)" },
+        { "id": "L10", "exerciseId": "plank", "sets": 3, "repRange": { "min": 20, "max": 30 }, "unit": "s", "rpeTarget": { "min": 8, "max": 8 }, "restSec": 45, "technique": "none", "notes": "Costole giù, glutei contratti, niente schiena inarcata" }
       ]
     },
     {
       "id": "upperB", "weekday": 4, "type": "upperB", "name": "Upper B",
       "subtitle": "Pesante — spinta e tirata verticale",
-      "warmup": ["gym"], "rampFirstExercise": true,
+      "warmup": ["gym", "physio"], "rampFirstExercise": true,
       "blocks": [
         { "id": "B1", "exerciseId": "ohp_bb", "sets": 4, "repRange": { "min": 5, "max": 8 }, "rpeTarget": { "min": 8, "max": 8 }, "restSec": 150, "technique": "none", "notes": "Incremento 2,5 kg" },
         { "id": "B2", "exerciseId": "pullup", "sets": 4, "repRange": { "min": 6, "max": 10 }, "rpeTarget": { "min": 9, "max": 9 }, "restSec": 120, "technique": "eccentric4s", "techniqueSets": 1, "notes": "Assistite con elastico o macchina se sotto le 6 pulite. Eccentrica di 4\" nell'ultima serie. Progressione riducendo l'assistenza" },
@@ -248,7 +282,7 @@
     {
       "id": "upperC", "weekday": 7, "type": "upperC", "name": "Upper C",
       "subtitle": "Volume e tecniche di intensità — macchine e cavi + camminata",
-      "warmup": ["gym"], "rampFirstExercise": true,
+      "warmup": ["gym", "physio"], "rampFirstExercise": true,
       "extras": [
         { "id": "walk", "text": "Camminata 45-60' (anche nel pomeriggio)" }
       ],

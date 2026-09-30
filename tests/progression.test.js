@@ -133,6 +133,46 @@ describe('double progression', () => {
   });
 });
 
+describe('home Lower: fixed dumbbells, bodyweight, quality work', () => {
+  const split = block('lower', 'L4'); // 3 × 8-12, max 6 kg
+  const splitEx = ex('split_squat_db');
+
+  it('first session starts from the available load', () => {
+    expect(target(splitEx, split, [])).toMatchObject({ action: 'start', weightKg: 6 });
+  });
+
+  it('range completed at the max available load: harder variant, same load', () => {
+    const h = [hist('2026-09-30', split, [[6, 12, 8], [6, 12, 8], [6, 12, 8]], { dayId: 'lower' })];
+    expect(target(splitEx, split, h)).toMatchObject({ action: 'variant', weightKg: 6 });
+  });
+
+  it('no early raise beyond the max available load', () => {
+    expect(earlyRaiseSuggestion({ set: { weightKg: 6, reps: 12, rpe: 6 }, prescribed: split, exercise: splitEx, rules })).toBeNull();
+  });
+
+  it('stall at a fixed load suggests an easier variant, not −10%', () => {
+    const h = [
+      hist('2026-09-23', split, [[6, 6, 10], [6, 6, 10], [6, 5, 10]], { dayId: 'lower' }),
+      hist('2026-09-30', split, [[6, 6, 10], [6, 6, 10], [6, 5, 10]], { dayId: 'lower' }),
+    ];
+    expect(target(splitEx, split, h)).toMatchObject({ action: 'reduce', weightKg: 6 });
+  });
+
+  it('jumps have no load progression', () => {
+    const cmj = block('lower', 'L2');
+    const h = [hist('2026-09-30', cmj, [[0, 3, null], [0, 3, null], [0, 3, null], [0, 3, null]], { dayId: 'lower' })];
+    expect(target(ex('cmj_stick'), cmj, h)).toMatchObject({ action: 'quality', weightKg: null });
+  });
+
+  it('bodyweight exercises start without asking for a load; plank adds 5 seconds', () => {
+    const plank = block('lower', 'L10');
+    expect(target(ex('plank'), plank, [])).toMatchObject({ action: 'hold', weightKg: 0 });
+    const h = [hist('2026-09-30', plank, [[0, 30, 8], [0, 30, 8], [0, 30, 8]], { dayId: 'lower' })];
+    h[0].prescribed.unit = 's';
+    expect(target(ex('plank'), plank, h)).toMatchObject({ action: 'addRep', targetReps: 35 });
+  });
+});
+
 describe('early raise within the session', () => {
   it('first set at top of range with RPE <= 7 suggests +increment', () => {
     const s = earlyRaiseSuggestion({ set: { weightKg: 60, reps: 8, rpe: 7 }, prescribed: benchBlock, exercise: bench, rules });

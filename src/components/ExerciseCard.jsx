@@ -15,24 +15,31 @@ const ACTION_LABEL = {
   hold: ['', '= stesso carico'],
   holdInterval: ['', '= attendi 2 settimane'],
   addRep: ['accent', '+1 rip.'],
-  start: ['info', 'da esplorativa'],
+  start: ['info', 'carico iniziale'],
+  quality: ['info', 'qualità, niente carico'],
+  variant: ['accent', '→ variante più difficile'],
   firstTime: ['info', 'prima volta'],
 };
 
 function rpeLabel(r) {
+  if (!r) return '';
   return r.min === r.max ? `${r.min}` : `${r.min}-${r.max}`;
 }
 
+const UNIT_SUFFIX = { m: ' m', s: '"', reps: '' };
+
 function repChoices(block, technique) {
   if (block.unit === 'm') return [10, 15, 20, 25, 30, 35, 40];
+  if (block.unit === 's') return [10, 15, 20, 25, 30, 35, 40, 45, 60];
   const lo = Math.max(1, block.repRange.min - 3);
   const hi = block.repRange.max + (technique === 'amrapLast' ? 8 : 3);
   return Array.from({ length: hi - lo + 1 }, (_, i) => lo + i);
 }
 
 export function setSummary(s, block, loadType) {
-  const unit = block.unit === 'm' ? ' m' : '';
-  const w = loadType === 'assisted' ? (s.weightKg ? `ass. ${fmtKg(s.weightKg)} kg` : 'corpo libero') : `${fmtKg(s.weightKg)} kg`;
+  const unit = UNIT_SUFFIX[block.unit || 'reps'] || '';
+  const w = loadType === 'assisted' ? (s.weightKg ? `ass. ${fmtKg(s.weightKg)} kg` : 'corpo libero') : loadType === 'bodyweight' ? '' : `${fmtKg(s.weightKg)} kg`;
+  if (!w) return `${s.reps}${unit}${s.rpe != null ? ` @ ${String(s.rpe).replace('.', ',')}` : ''}`;
   const extra = [s.dropReps ? `drop ${s.dropReps}` : null, s.miniSets?.length ? `myo ${s.miniSets.join('+')}` : null].filter(Boolean).join(' · ');
   return `${w} × ${s.reps}${unit}${s.rpe != null ? ` @ ${String(s.rpe).replace('.', ',')}` : ''}${extra ? ` · ${extra}` : ''}`;
 }
@@ -57,7 +64,7 @@ export function ExerciseCard({ block, plan, session, isLastBlock, nextInSuperset
   const defaults = {
     weightKg: weightOverride ?? lastLogged?.weightKg ?? block.target.weightKg ?? null,
     reps: block.defaultReps[working.length] ?? block.repRange.min,
-    rpe: block.rpeTarget.max,
+    rpe: block.rpeTarget?.max ?? null,
   };
   const techInfo = program.techniques[block.technique || 'none'];
   const [cls, actionText] = ACTION_LABEL[block.target.action] || ['', ''];
@@ -123,13 +130,19 @@ export function ExerciseCard({ block, plan, session, isLastBlock, nextInSuperset
           <h3 style={{ marginTop: 6 }}>{ex.name}</h3>
           <div class="small muted num">
             {block.sets} × {block.repRange.min === block.repRange.max ? block.repRange.min : `${block.repRange.min}-${block.repRange.max}`}
-            {block.unit === 'm' ? ' m' : ''}
-            {block.perSide ? ' per lato' : ''} · RPE {rpeLabel(block.rpeTarget)} · {block.restSec}"
+            {UNIT_SUFFIX[block.unit || 'reps']}
+            {block.perSide ? ' per lato' : ''}{block.rpeTarget ? ` · RPE ${rpeLabel(block.rpeTarget)}` : ''} · {block.restSec}"
           </div>
         </div>
         <div style={{ textAlign: 'right' }}>
-          <div class="big num">{block.target.weightKg == null ? '—' : fmtKg(block.target.weightKg)}</div>
-          <div class="tiny muted">{ex.loadType === 'assisted' ? 'kg assist.' : ex.loadType === 'dumbbell' ? 'kg/mano' : 'kg'}</div>
+          {ex.loadType === 'bodyweight' ? (
+            <div class="small muted">corpo libero</div>
+          ) : (
+            <>
+              <div class="big num">{block.target.weightKg == null ? '—' : fmtKg(block.target.weightKg)}</div>
+              <div class="tiny muted">{ex.loadType === 'assisted' ? 'kg assist.' : ex.loadType === 'dumbbell' ? 'kg/mano' : 'kg'}</div>
+            </>
+          )}
         </div>
       </div>
       {actionText && (
@@ -139,6 +152,7 @@ export function ExerciseCard({ block, plan, session, isLastBlock, nextInSuperset
         </div>
       )}
       {block.notes && <p class="tiny muted">{block.notes}</p>}
+      {block.stepNote && <p class="small" style={{ color: 'var(--info)' }}>{block.stepNote}</p>}
       {raise && (
         <div class="alert good">
           <div class="grow">{raise.message}</div>
@@ -174,7 +188,7 @@ export function ExerciseCard({ block, plan, session, isLastBlock, nextInSuperset
             <SetEditor
               key={`new-${sets.length}-${defaults.weightKg}`}
               block={block} ex={ex} technique={nextTechnique} initial={defaults} loadLabel={loadLabel} rules={rules}
-              allowExploratory={block.target.action === 'firstTime' || block.target.action === 'start'}
+              allowExploratory={block.target.action === 'firstTime' || (block.target.action === 'start' && block.maxLoadKg == null)}
               onSave={(v) => save(sets.length, { ...v, technique: v.exploratory ? 'none' : nextTechnique, at: new Date().toISOString() }, true)}
             />
           </div>
@@ -243,7 +257,7 @@ function SetEditor({ block, ex, technique, initial, loadLabel, rules, onSave, on
   const bump = (dir) => setWeight((w) => Math.max(0, roundTo((w || 0) + dir * inc, 0.01)));
   const submit = () => {
     const miniSets = myo ? myo.split(/[+ ,]+/).map(Number).filter((n) => n > 0) : undefined;
-    const v = { weightKg: weightKg ?? 0, reps, rpe, exploratory: exploratory || undefined };
+    const v = { weightKg: ex.loadType === 'bodyweight' ? 0 : weightKg ?? 0, reps, rpe: block.rpeTarget ? rpe : null, exploratory: exploratory || undefined };
     if (technique === 'dropset' && dropReps) v.dropReps = dropReps;
     if (technique === 'myoreps' && miniSets?.length) v.miniSets = miniSets;
     onSave(v);
@@ -251,24 +265,32 @@ function SetEditor({ block, ex, technique, initial, loadLabel, rules, onSave, on
 
   return (
     <div class="editor">
-      <div class="lbl">{loadLabel}</div>
-      <div class="weight">
-        <button class="btn" onClick={() => bump(-1)} aria-label="Meno">−</button>
-        <NumInput value={weightKg} onChange={setWeight} placeholder="kg" aria-label={loadLabel} />
-        <button class="btn" onClick={() => bump(1)} aria-label="Più">+</button>
-      </div>
-      <div class="lbl">{block.unit === 'm' ? 'Metri' : `Ripetizioni${block.perSide ? ' per lato' : ''}`}</div>
+      {ex.loadType !== 'bodyweight' && (
+        <>
+          <div class="lbl">{loadLabel}</div>
+          <div class="weight">
+            <button class="btn" onClick={() => bump(-1)} aria-label="Meno">−</button>
+            <NumInput value={weightKg} onChange={setWeight} placeholder="kg" aria-label={loadLabel} />
+            <button class="btn" onClick={() => bump(1)} aria-label="Più">+</button>
+          </div>
+        </>
+      )}
+      <div class="lbl">{block.unit === 'm' ? 'Metri' : block.unit === 's' ? 'Secondi' : `Ripetizioni${block.perSide ? ' per lato' : ''}`}</div>
       <div class="chips">
         {choices.map((n) => (
           <button key={n} class={`chip ${reps === n ? 'on' : ''}`} onClick={() => setReps(n)}>{n}</button>
         ))}
       </div>
-      <div class="lbl">RPE</div>
-      <div class="chips">
-        {RPES.map((n) => (
-          <button key={n} class={`chip small ${rpe === n ? 'on' : ''}`} onClick={() => setRpe(n)}>{String(n).replace('.', ',')}</button>
-        ))}
-      </div>
+      {block.rpeTarget && (
+        <>
+          <div class="lbl">RPE</div>
+          <div class="chips">
+            {RPES.map((n) => (
+              <button key={n} class={`chip small ${rpe === n ? 'on' : ''}`} onClick={() => setRpe(n)}>{String(n).replace('.', ',')}</button>
+            ))}
+          </div>
+        </>
+      )}
       {technique === 'dropset' && (
         <>
           <div class="lbl">Ripetizioni del drop (−30%, facoltativo)</div>

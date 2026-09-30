@@ -65,8 +65,17 @@ export function nextTarget({ exercise, prescribed, history, rules, today }) {
   const inc = incrementFor(exercise, rules);
   const loadType = exercise.loadType;
   const working = history.filter((h) => !h.deload && workingSets(h).length);
+  const maxLoadKg = prescribed?.maxLoadKg ?? null;
+
+  // Jumps, sprints, drills: quality first, no load progression.
+  if ((prescribed?.progression || 'double') === 'none') {
+    const w = working.length ? loadOf(working[working.length - 1]) : null;
+    return { weightKg: loadType === 'bodyweight' ? null : w, action: 'quality', reason: 'Qualità e velocità: nessuna progressione di carico' };
+  }
 
   if (!working.length) {
+    if (loadType === 'bodyweight') return { weightKg: 0, action: 'hold', reason: 'Corpo libero' };
+    if (maxLoadKg != null) return { weightKg: maxLoadKg, action: 'start', reason: `Carico disponibile: ${maxLoadKg} kg` };
     const exploratory = history.flatMap((h) => h.sets.filter((s) => s.exploratory));
     if (exploratory.length) {
       return { weightKg: exploratory[exploratory.length - 1].weightKg, action: 'start', reason: 'Carico dalla serie esplorativa' };
@@ -87,6 +96,9 @@ export function nextTarget({ exercise, prescribed, history, rules, today }) {
     const allFailed = recent.every((h) => countBelowMin(h, pr) >= p.failureMinSetsBelowMin);
     const sameLoad = recent.every((h) => loadOf(h) === lastLoad);
     if (allFailed && sameLoad) {
+      if (maxLoadKg != null || loadType === 'bodyweight') {
+        return { weightKg: lastLoad, action: 'reduce', reason: `${n} sedute sotto il minimo: usa una variante più facile o riduci l'ampiezza` };
+      }
       let weightKg;
       if (loadType === 'assisted') {
         weightKg = lastLoad + (inc || 5);
@@ -104,7 +116,7 @@ export function nextTarget({ exercise, prescribed, history, rules, today }) {
 
   const ws = workingSets(last);
   const enoughSets = !p.requireAllPrescribedSets || ws.length >= pr.sets;
-  const allAtTop = ws.every((s) => s.reps >= pr.repMax && (s.rpe == null || s.rpe <= pr.rpeMax));
+  const allAtTop = ws.every((s) => s.reps >= pr.repMax && (s.rpe == null || pr.rpeMax == null || s.rpe <= pr.rpeMax));
 
   if (enoughSets && allAtTop) {
     if (exercise.minDaysBetweenIncrements) {
@@ -126,7 +138,15 @@ export function nextTarget({ exercise, prescribed, history, rules, today }) {
     }
     if (!inc) {
       const best = Math.max(...ws.map((s) => s.reps));
+      if (pr.unit === 's') return { weightKg: lastLoad, action: 'addRep', targetReps: best + 5, reason: 'Range completato: +5 secondi' };
       return { weightKg: lastLoad, action: 'addRep', targetReps: best + 1, reason: 'Range completato: +1 ripetizione' };
+    }
+    if (maxLoadKg != null && lastLoad + inc > maxLoadKg) {
+      return {
+        weightKg: lastLoad,
+        action: 'variant',
+        reason: `Range completato con il carico massimo disponibile (${maxLoadKg} kg): discesa più lenta (4") o variante più difficile`,
+      };
     }
     return {
       weightKg: roundTo(lastLoad + inc, 0.01),
@@ -145,8 +165,11 @@ function snapshotFallback(prescribed) {
     sets: prescribed.sets,
     repMin: prescribed.repRange.min,
     repMax: prescribed.repRange.max,
-    rpeMin: prescribed.rpeTarget.min,
-    rpeMax: prescribed.rpeTarget.max,
+    rpeMin: prescribed.rpeTarget?.min ?? null,
+    rpeMax: prescribed.rpeTarget?.max ?? null,
+    unit: prescribed.unit || 'reps',
+    progression: prescribed.progression || 'double',
+    maxLoadKg: prescribed.maxLoadKg ?? null,
   };
 }
 
@@ -154,6 +177,8 @@ function snapshotFallback(prescribed) {
 export function earlyRaiseSuggestion({ set, prescribed, exercise, rules, isDeload }) {
   if (isDeload || !set || set.exploratory) return null;
   const pr = snapshotFallback(prescribed);
+  if (pr.progression === 'none') return null;
+  if (pr.maxLoadKg != null && set.weightKg + incrementFor(exercise, rules) > pr.maxLoadKg) return null;
   if (set.reps >= pr.repMax && typeof set.rpe === 'number' && set.rpe <= rules.progression.earlyRaiseMaxRpe) {
     const inc = incrementFor(exercise, rules);
     if (!inc) return null;
@@ -171,7 +196,7 @@ export function earlyRaiseSuggestion({ set, prescribed, exercise, rules, isDeloa
 // Default reps shown for a set before logging.
 export function defaultReps(target, prescribed, lastEntry, setIndex) {
   const pr = snapshotFallback(prescribed);
-  if (pr.unit === 'm' || pr.repMin === pr.repMax) return pr.repMin;
+  if (pr.unit === 'm' || pr.progression === 'none' || pr.repMin === pr.repMax) return pr.repMin;
   if (target?.action === 'addRep' && target.targetReps) return target.targetReps;
   if (target?.action === 'hold' && lastEntry) {
     const s = workingSets(lastEntry)[setIndex];

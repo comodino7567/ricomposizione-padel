@@ -92,6 +92,7 @@
     "painFlagMin": 4,
     "over24hFlags": true,
     "lowerSwap": { "from": "squat_bb", "to": "leg_press" },
+    "lowerSkipExplosive": true,
     "padelReducedMin": 60,
     "physioPainMin": 5,
     "physioCount": 2,

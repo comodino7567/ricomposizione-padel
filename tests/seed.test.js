@@ -27,6 +27,6 @@ describe('sample data', () => {
 
   it('the last match (pain 4) triggers the injury adjustments', () => {
     const plan = buildDayPlan({ program, rules, settings: baseSettings(), date: '2026-09-30', sessions: data.sessions });
-    expect(plan.blocks.find((b) => b.id === 'L1').exerciseId).toBe('leg_press');
+    expect(plan.blocks.find((b) => b.id === 'L1').skippedForInjury).toBe(true);
   });
 });

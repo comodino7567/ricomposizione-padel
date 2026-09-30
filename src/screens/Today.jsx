@@ -201,7 +201,11 @@ function GymDay({ plan, session }) {
         </>
       )}
       {blocks.map((b, i) =>
-        b.kind === 'rehab' ? (
+        b.skippedForInjury ? (
+          <div key={b.id} class="card tight">
+            <span class="badge danger">saltato per l'inguine</span> <span class="small muted">{b.id} · {b.exercise.name}</span>
+          </div>
+        ) : b.kind === 'rehab' ? (
           <RehabCard key={b.id} block={b} plan={plan} session={session} />
         ) : (
           <ExerciseCard

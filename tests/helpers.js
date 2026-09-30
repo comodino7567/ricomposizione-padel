@@ -14,7 +14,16 @@ export function block(dayId, blockId) {
 }
 
 export function prescribed(b) {
-  return { sets: b.sets, repMin: b.repRange.min, repMax: b.repRange.max, rpeMin: b.rpeTarget.min, rpeMax: b.rpeTarget.max };
+  return {
+    sets: b.sets,
+    repMin: b.repRange.min,
+    repMax: b.repRange.max,
+    rpeMin: b.rpeTarget?.min ?? null,
+    rpeMax: b.rpeTarget?.max ?? null,
+    unit: b.unit || 'reps',
+    progression: b.progression || 'double',
+    maxLoadKg: b.maxLoadKg ?? null,
+  };
 }
 
 // sets: [[weight, reps, rpe], ...]

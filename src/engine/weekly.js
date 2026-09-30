@@ -18,7 +18,7 @@ export function progressedExercises(sessions, program, weekStart) {
     if (!inRange(s.date, weekStart, weekEnd) || s.deload) continue;
     for (const e of s.entries || []) {
       const key = `${s.programDayId}:${e.exerciseId}`;
-      if (seen.has(key) || !workingSets(e).length) continue;
+      if (seen.has(key) || !workingSets(e).length || e.prescribed?.progression === 'none') continue;
       seen.add(key);
       const ex = exerciseById(program, e.exerciseId);
       const prevList = exerciseHistory(sessions, e.exerciseId, s.programDayId, s.date).filter((h) => !h.deload && workingSets(h).length);
